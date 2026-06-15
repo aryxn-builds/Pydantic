@@ -41,18 +41,15 @@ user = User(name="Aryan", age=21, email="ay6033756@gmail.com")
 ## 📂 Repo Structure
 
 ```
-pydantic-crash-course/
+pydantic/
 │
-├── 01_basemodel_basics.py          # BaseModel, fields, instantiation
-├── 02_field_types.py               # str, int, float, bool, List, Dict, etc.
-├── 03_field_validators.py          # @field_validator, @model_validator
-├── 04_default_and_optional.py      # Optional fields, default values, aliases
-├── 05_nested_models.py             # Models inside models
-├── 06_custom_validators.py         # Custom logic with @validator
-├── 07_model_config.py              # ConfigDict, strict mode, frozen models
-├── 08_serialization.py             # .model_dump(), .model_dump_json()
-├── 09_json_schema.py               # .model_json_schema() for API docs
-├── 10_real_world_example.py        # Full use case (API response validation)
+├── 01_type_validation.py          
+├── 02_data_validation.py               
+├── 03_field_validation.py          
+├── 04_model_validation.py      
+├── 05_computed_fields.py            
+├── 06_nested_models.py         
+├── 07_serialization.py                    
 │
 └── README.md
 ```
@@ -72,8 +69,6 @@ pydantic-crash-course/
 | 07 | Model Config | Strict mode, frozen, alias generation |
 | 08 | Serialization | Export to `dict`, `JSON` |
 | 09 | JSON Schema | Auto-generate OpenAPI-compatible schemas |
-| 10 | Real World Example | Validate API responses end-to-end |
-
 ---
 
 ## 🚀 Getting Started
@@ -81,7 +76,7 @@ pydantic-crash-course/
 **1. Clone the repo**
 ```bash
 git clone https://github.com/aryxn-builds/Pydantic.git
-cd pydantic
+cd Pydantic
 ```
 
 **2. Install Pydantic**
