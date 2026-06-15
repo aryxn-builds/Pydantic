@@ -1,6 +1,4 @@
-# model validation is used to validate the data of a model as a whole. It is used to validate the data of a model as a whole.
-
-from pydantic import BaseModel, EmailStr, model_validator
+from pydantic import BaseModel, EmailStr, computed_field
 from typing import List, Dict
 
 class Patient(BaseModel):
@@ -8,19 +6,19 @@ class Patient(BaseModel):
     name: str
     email: EmailStr
     age: int
-    weight: float
+    weight: float # kg
+    height: float # mtr
     married: bool
     allergies: List[str]
     contact_details: Dict[str, str]
     
     
-    @model_validator(mode="after")    #  After validators: run after the whole model has been validated. As such, they are defined as instance methods and can be seen as post-initialization hooks. Important note: the validated instance should be returned.
-    def validate_emergency_contact(cls, model):
-        if  model.age > 60 and 'emergency' not in model.contact_details:
-            raise ValueError("Emergency contact is required for patients over 60")
-        return model
-    
-    
+    @computed_field
+    @property
+    def bmi(self) -> float:
+        return self.weight / (self.height ** 2)
+
+
 def update_patient_data(patient: Patient ):
     
     print(patient.name)
@@ -30,6 +28,7 @@ def update_patient_data(patient: Patient ):
     print(patient.married)
     print(patient.allergies)
     print(patient.contact_details)
+    print(f"Patient's BMI: {patient.bmi}")
     print("updated patient data successfully")
     
 Patient_info = {
@@ -37,6 +36,7 @@ Patient_info = {
     "email" : "john.doe@hdfc.com",
     "age" : 70,
     "weight" : 70.5,
+    'height': 1.72,
     "married" : True,
     "allergies" : ["Peanuts", "Shellfish"],
     "contact_details" : {"email" : "john.doe@example.com", "phone" : "123-456-7890", "emergency" : "987-654-3210"}
